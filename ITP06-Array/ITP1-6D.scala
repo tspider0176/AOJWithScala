@@ -5,7 +5,7 @@ object Main{
     val num = StdIn.readLine().split(" ")
     val arr1 = Array[Int]()();
 
-    for(i <- 0 until num){
+    for(i <- 0 until num(0).toInt){
       val line = StdIn.readLine().split(" ")
       
     }
@@ -15,8 +15,6 @@ object Main{
         arr1(i)(j) =
       }
     }
-
-
 
   }
 }
