@@ -7,7 +7,7 @@ object Main{
 
     for(i <- 0 until num(0).toInt){
       val line = StdIn.readLine().split(" ")
-      
+
     }
 
     for(i <- 0 until in1(0).toInt){
@@ -15,6 +15,5 @@ object Main{
         arr1(i)(j) =
       }
     }
-
   }
 }
