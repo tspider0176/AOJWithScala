@@ -12,7 +12,7 @@ object Main{
         case "H" => cards(1)(sai(1).toInt) = true
         case "C" => cards(2)(sai(1).toInt) = true
         case "D" => cards(3)(sai(1).toInt) = true
-        case _ => None
+        case _ =>
       }
     }
 
@@ -24,7 +24,7 @@ object Main{
             case 1 => println("H " + j)
             case 2 => println("C " + j)
             case 3 => println("D " + j)
-            case _ => None
+            case _ =>
           }
         }
       }
