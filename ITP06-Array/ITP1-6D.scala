@@ -9,7 +9,7 @@ object Main{
 
     for(i <- 0 until num(0).toInt){
       val line = StdIn.readLine().split(" ").map(_.toInt)
-
+      
       for(j <- 0 until num(1).toInt){
         arr1(i)(j) = line(j)
       }
