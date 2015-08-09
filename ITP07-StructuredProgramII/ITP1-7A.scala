@@ -7,7 +7,7 @@ object Main{
       in <- inputs
       val Array(a, b, c, _*) = in.split(" ").map(_.toInt)
     }(a, b, c) match {
-      case (-1, -1, -1) => 
+      case (-1, -1, -1)
       case (-1, _, _) => println("F")
       case (_ ,-1, _) => println("F")
       case (a, b, c) if a+b >= 80 => println("A")
