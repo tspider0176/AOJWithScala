@@ -1,0 +1,131 @@
+
+
+普通のリスト
+list.tabulate(5)((x: Int) => x)
+      ^^^^^^^
+シングルトンオブジェクト
+
+list.tabulate(5)(5)((x: Int) =>)
+
+for(val file <- filesHere){
+  println(file)
+}
+ここで、fileはいちいち値を更新しているのではなく、
+ループの度に新しく用意されている
+このことを、"""代入"""ではなく"""バインド"""という。
+
+⚪︎ちょっとテスト
+List(10000)
+List(11000)
+List(11100)
+List(11110)
+List(11111)
+をyieldで作る
+(for(i <- 1 to 5) yield (List.fill(i)(1) ++ List.fill(5-i)(0)))
+これはvalueなので、
+以下のfor式を使って
+
+for(line <- ) println(line)
+↓
+for(line <- (for(i <- 1 to 5) yield (List.fill(i)(1) ++ List.fill(5-i)(0)))) println(line)
+
+Noneとは何か
+Someの対訳的存在
+Option
+
+⚪︎ヒエラルキーについて
+Any -> 全てのクラスのスーパークラス javaでいうobject
+Anyval -> 全てのプリミティブ型のクラスのスーパークラス
+Abyref -> 全ての参照型以下同文
+Nothing -> すべてのクラスのサブクラス
+Null -> 参照型のクラスのサブクラス
+
+⚪︎コップ本より grepプログラム
+object Main{
+  def main(args: Array[String]){
+    val filesHere = (new java.io.File(".")).listFiles
+
+    def fileLines(file: java.io.File) =
+      scala.io.Source.fromFile(file).getLines().toList
+
+    def grep(pattern: String){
+      for{
+        file <- filesHere if file.getName.endsWith(".scala")
+        line <- fileLines(file) if line.trim.matches(pattern)
+      }println(file + ": " + line.trim)
+    }
+
+    grep(".*scala.*")
+  }
+}
+
+⚪︎コップ本より
+try{
+  val f = new FileReader("input.txt")
+} catch{
+  //型のパターンマッチ
+  case ex: FileNotFoundException => //ファイルなしエラー処理
+  case ex: IOException => //その他のI/Oエラーを処理
+}
+
+⚪︎List(1,2,3,4,5)に関して、奇数だったら0、偶数だったらその数字を出力する問題
+List(1,2,3,4,5).map(x => if(x % 2 == 0) x else 0)
+List(1,2,3,4,5).map(x => x match{case x if x % 2 == 0 => x; case _ => 0})
+省略方法
+パターンマッチ匿名関数
+List(1,2,3,4,5).map{case x if x % 2 == 0 => x; case _ => 0}
+
+⚪︎偶数を表示するいくつかのメソッド
+(1 to 10).map{x => if(x % 2 == 0) List(x) else List()}.flatten
+for(i <- 1 to 10 if i % 2 == 0) yield i
+(1 to 10).filter(_ % 2 == 0)
+
+(1 to 10).map{
+  case x if x % 2 == 0 => List(x)
+  case _ =>
+}.flatten
+
+⚪︎再帰を用いたscalaファイルのsearch処理
+def main(args: Array[String]){
+  def searchFrom(i: Int): Int =
+    if(i >= args.length) -1
+    else if(args(i).startsWith("-")) searchFrom(i + 1)
+    else if(args(i).endsWith(".scala")) i
+    else searchFrom(i + 1)
+
+  val i = searchFrom(0)
+}
+
+⚪︎改善後の九九グリッド表示プログラム
+def main(args: Array[String]){
+  println(multiTable())
+}
+
+def makeRowSeq(row: Int) = {
+  for(col <- 1 to 10) yield {
+    val prod = (row * col).toString
+    val padding = " " * (4 - prod.length)
+    padding + prod
+  }
+}
+
+def makeRow(row: Int) = {
+  makeRowSeq(row).mkString
+}
+
+def multiTable() = {
+  val tableSeq =
+    for(row <- 1 to 10) yield makeRow(row)
+  tableSeq.mkString("\n")
+}
+
+⚪︎改善後の九九表示プログラムについて
+・値を返すことが可能になった -> 安全性及び副作用の削減
+・関数に分けることにより単体テストを行うのが容易になった
+・処理に「名前」をつけることにより可視性が上がった
+九九のプログラムの例や再帰型関数の例について
+プログラムについて関数ごとに小分けにすることによって
+それぞれの処理に対して「名前」を浸かることができるので
+プログラムの可視性が向上する
+（改善前の九九プログラムとか丁寧にコメントが付けてあるのに
+ちっとも読みやすくないのがわかる）

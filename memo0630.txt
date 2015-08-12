@@ -1,0 +1,63 @@
+5章
+戦闘の文字が大文字か小文字かでプリミティブ型かどうかを判定できる
+プリミティブ型とオブジェクト型
+scalaは全部オブジェクト型です
+
+scalaではリテラルが使用できる
+新しい言語を勉強するときにはリテラルが大事だから注意しましょう
+
+リテラルは大文字でも小文字でもおっけー
+ex)
+1L = 1l
+1.4f = 1.4F
+明示的に型を指定したいときには型はつけるようにしましょう
+
+scalaz
+
+println内のトリプルクォート「"""」が重要
+この内部のものは特殊文字や改行がそのまま出力されるようになる
+エスケープシークエンスが必要なくなる！
+
+==をオーバーライドするときはequalsメソッドをオーバーライドすること！
+p.105に記述されている通り、
+==はnullチェックの後にequalsメソッドが呼び出されるため
+
+object Main{
+  def main(args: Array[String]){
+    println(new Hoge(1) == new Hoge(1))
+    println(new Hoge(1) eq new Hoge(1))
+  }
+}
+
+case class Hoge(x: Int){
+  override def equals(hoge: Any):Boolean =
+    hoge match{
+    case Hoge(x) => this.x == x
+    case _ => false
+  }
+}
+
+今まで言ってきたように、
+1 max 20
+は
+1.max(20)
+に分解できる
+
+public class Hello{
+  public static void main(String[] args){
+    Integer x = 10;
+    Integer y = 20;
+
+    // error
+    // 下のエラーはインスタンスメソッド
+    // x.max(y)
+    // 下はクラスメソッド
+    Integer.max(x,y);
+  }
+}
+
+5.9節
+リッチラッパー
+インプリシットコンバーション
+裏でint型からritchint方に暗黙的に変換を行っていて
+そのritchint型のmaxを呼び出している
