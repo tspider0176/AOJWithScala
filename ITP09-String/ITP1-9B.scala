@@ -1,22 +1,28 @@
-import scala.io.StdIn
 import scala.io.Source
 
 object Main{
   def main(args: Array[String]){
-    val lines = 
+    val lines =
     	for{
-    		in <- Source.stdin.getLines.toList
-    	}yield in
+        in <- Source.stdin.getLines.toList
+    	}yield in.toString
 
-    var h = List[Int]()
-    for(i <- 1 to lines(1)){
-    	h = lines(i+1) :: h
+    def reArrangeList(list: List[String]): List[List[String]] ={
+      if(list == List("-"))
+        List()
+      else
+        list.splitAt(list.tail.head.toInt + 2)._1 :: reArrangeList(list.splitAt(list.tail.head.toInt + 2)._2)
     }
 
-    def reCatCard(s: String, i, Int):String ={
-    	
+    def reCatCard(s: String, h: List[Int]):String ={
+      if(h.tail == Nil)
+        s.dropRight(s.length - h.head).patch(0,s.drop(h.head),0)
+      else
+        reCatCard(s.dropRight(s.length - h.head).patch(0,s.drop(h.head),0), h.tail)
     }
 
-    lines(0).
+    for(target <- reArrangeList(lines)){
+      println(reCatCard(target.head, target.tail.tail.map(_.toInt)))
+    }
   }
 }
