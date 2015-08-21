@@ -16,9 +16,9 @@ object Main{
 
     def reCatCard(s: String, h: List[Int]):String ={
       if(h.tail == Nil)
-        s.dropRight(s.length - h.head).patch(0,s.drop(h.head),0)
+        s.dropRight(s.length - h.head).patch(0, s.drop(h.head), 0)
       else
-        reCatCard(s.dropRight(s.length - h.head).patch(0,s.drop(h.head),0), h.tail)
+        reCatCard(s.dropRight(s.length - h.head).patch(0, s.drop(h.head),0), h.tail)
     }
 
     for(target <- reArrangeList(lines)){
