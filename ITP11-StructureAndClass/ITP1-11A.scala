@@ -25,19 +25,15 @@ object Main{
 class Dice(sur: List[Int]){
   val index: List[Int] = sur
 
-  def rotN(): List[Int] ={
+  def rotN(): List[Int] =
     List[Int](index(1), index(5), index(2), index(3), index(0), index(4))
-  }
 
-  def rotS(): List[Int] ={
+  def rotS(): List[Int] =
     List[Int](index(4), index(0), index(2), index(3), index(5), index(1))
-  }
 
-  def rotW(): List[Int] ={
+  def rotW(): List[Int] =
     List[Int](index(2), index(1), index(5), index(0), index(4), index(3))
-  }
 
-  def rotE(): List[Int] ={
+  def rotE(): List[Int] =
     List[Int](index(3), index(1), index(0), index(5), index(4), index(2))
-  }
 }
