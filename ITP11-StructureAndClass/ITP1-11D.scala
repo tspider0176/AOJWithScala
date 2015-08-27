@@ -1,32 +1,26 @@
-import scala.io.StdIn
+import scala.io.Source
 
 object Main{
   def main(args: Array[String]){
-    val dice1 = new Dice(StdIn.readLine.split(" ").toList.map(_.toInt))
-    val dice2 = new Dice(StdIn.readLine.split(" ").toList.map(_.toInt))
+    val dices = for{
+      in <- Source.stdin.getLines.toList
+    } yield in
 
-    println(if(dice1.isEqual(dice2)) "Yes" else "No")
+    val targets = dices.tail.map(_.split(" ").toList.map(_.toInt)).combinations(2)
+    val list = for{
+      target <- targets
+    } yield {
+      val dice1 = new Dice(target.head)
+      val dice2 = new Dice(target.last)
+      dice1.isEqual(dice2)
+    }
+
+    println(if(!list.foldLeft(false)((a,b) => a || b)) "Yes" else "No")
   }
 }
 
 class Dice(sur: List[Int]){
   private val index: List[Int] = sur
-
-  def findRight(list: List[Int]): Int={
-    val dice = new Dice(index)
-    val kindOfDices = List[Dice](dice, dice.rotN, dice.rotS, dice.rotW, dice.rotE, dice.rotN.rotN)
-    val finddice = for{
-      kindOfDice <- kindOfDices
-    }yield kindOfDice match{
-      case x if(x.getVal(0) == list(0) && x.getVal(1) == list(1)) => x.getVal(2)
-      case x if(x.rotR.getVal(0) == list(0) && x.rotR.getVal(1) == list(1)) => x.rotR.getVal(2)
-      case x if(x.rotR.rotR.getVal(0) == list(0) && x.rotR.rotR.getVal(1) == list(1)) => x.rotR.rotR.getVal(2)
-      case x if(x.rotR.rotR.rotR.getVal(0) == list(0) && x.rotR.rotR.rotR.getVal(1) == list(1)) => x.rotR.rotR.rotR.getVal(2)
-      case _ => 0
-    }
-
-    finddice.sum
-  }
 
   def isEqual(dice2:Dice): Boolean={
     val dice = new Dice(index)
