@@ -40,10 +40,10 @@ def test(x:Int) = x * 0.2
 foldLeft(0)((x:Int, y:Int) => _ + _)
 
 (1, _:Int, 3) = function<1>
+functionの後にある文字は引数の数を表している
 
 自由変数と束縛変数
 変数自体に意味を与えてある（今回の場合は型）場合、それを束縛変数と言う。
-
 
 自分でtimesを作成
 def times(num: Int)(f: => Unit): Unit ={
@@ -51,7 +51,7 @@ def times(num: Int)(f: => Unit): Unit ={
 }
 
 末尾再帰を用いて書くと、
-implicit class RitchInt(){
+implicit class RichInt(){
   def times(num: Int)(f: => Unit): Unit ={
   if(num != 0){
       f
