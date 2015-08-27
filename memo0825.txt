@@ -1,0 +1,62 @@
+値としてかけるものをリテラルと言う
+(x:Int)  => x * 2
+
+scala> (x: Int) => x + 1
+res0: Int => Int = <function1>
+
+scala> (x: Int, y:Int, z:Int ) => x + y+z
+res1: (Int, Int, Int) => Int = <function3>
+
+scala> (x: Int, y:Int, z:Int ) => x + y + z
+res2: (Int, Int, Int) => Int = <function3>
+
+タプルとは
+異なる値のセットを一つの値として扱う事が出来る
+List[Any] = (1, "test", 0.1)
+だが、
+(Int, String, Double) = (1, "test", 0.1)
+
+関数リテラルはそれぞれ簡単に、
+以下のように省略して書く事ができる
+scala> list.map((x:Int) => x * 2)
+res3: List[Int] = List(2, 4, 6, 8, 10)
+
+scala> list.map((x) => x * 2)
+res4: List[Int] = List(2, 4, 6, 8, 10)
+
+scala> list.map(x => x * 2)
+res5: List[Int] = List(2, 4, 6, 8, 10)
+
+実際には関数の戻り値も推論してくれるが
+コンパイラが正しく推論してくれるとは限らないし
+可読性が下がるので基本的にはこの部分は省略しない
+def test(x:Int):Double = x * 0.2
+
+def test(x:Int) = x * 0.2
+
+パラメータが関数リテラル内部で"""一回"""しか使われ無い時は
+プレースホルダーを用いて書く事が出来る。
+順番が変わら無ければそのまま以下のような書き方も出来る
+foldLeft(0)((x:Int, y:Int) => _ + _)
+
+(1, _:Int, 3) = function<1>
+
+自由変数と束縛変数
+変数自体に意味を与えてある（今回の場合は型）場合、それを束縛変数と言う。
+
+
+自分でtimesを作成
+def times(num: Int)(f: => Unit): Unit ={
+  for(i <- 1 to num)f
+}
+
+末尾再帰を用いて書くと、
+implicit class RitchInt(){
+  def times(num: Int)(f: => Unit): Unit ={
+  if(num != 0){
+      f
+      times(num - 1)(f)
+    }
+  }
+}
+def times(num: Int)(f: => Unit): Unit ={if(num == 0){f}else{f;times(num - 1)(f)}}
