@@ -3,13 +3,9 @@ import io.Source.stdin
 object Main{
   def main(args: Array[String]){
     for(line <- stdin.getLines().toList){
-      var sum = 0
+      val sum = line.map{c => c.toString.toInt}.foldLeft(0)((acc, a) => acc + a)
 
-      for(i <- 0 to line.length - 1){
-        sum += line(i).toInt - 48
-      }
-
-      if(sum != 0){
+      if (sum != 0){
         println(sum)
       }
     }
