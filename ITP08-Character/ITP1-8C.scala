@@ -5,7 +5,7 @@ object Main{
     val line =
       for{
         in <- Source.stdin.getLines.toList
-      } yield in.map(c => c.toLower)
+      } yield in.map(_.toLower)
 
     def numOfChar(s: String, c:Char):Int = {
       if(s.indexOf(c) == -1) 0

@@ -5,7 +5,7 @@ object Main{
     val line =
       for{
         in <- Source.stdin.getLines.toList
-      } yield in.map(c => c.toLower)
+      } yield in.map(_.toLower)
 
       val atoz = 'a' to 'z'
       val filteredSting = line.mkString.map(_.toLower).filter(atoz.contains(_))
