@@ -3,10 +3,11 @@ import scala.io.StdIn
 object Main{
   def main(args: Array[String]){
     val inputs = Iterator.continually(StdIn.readLine()).takeWhile(_ != null)
+    
     for{
       in <- inputs
       val Array(a, b, c, _*) = in.split(" ").map(_.toInt)
-    }(a, b, c) match {
+    } (a, b, c) match {
       case (-1, -1, -1)
       case (-1, _, _) => println("F")
       case (_ ,-1, _) => println("F")
