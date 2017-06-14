@@ -1,18 +1,17 @@
-import scala.io.StdIn
+import scala.io.Source
 
 object Main{
   def main(args: Array[String]){
-    var list = List[Int]()
+    val line =
+      for{
+        in <- Source.stdin.getLines.toList
+      } yield in.split(" ").map(_.toInt).toList
 
-    for(in <- StdIn.readLine.split(" ").map(_.toInt)){
-      list = in :: list
-    }
-
-    boc(list.reverse)
+    boc(line.flatten)
   }
 
   def boc(a: List[Int])={
-    if(a(0) < a(1) && a(1) < a(2)) println("Yes")
+    if(a.sorted == a && a.distinct == a) println("Yes")
     else println("No")
   }
 }
