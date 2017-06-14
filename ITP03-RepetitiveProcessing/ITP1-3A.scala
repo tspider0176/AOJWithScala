@@ -1,6 +1,6 @@
 object Main{
   def main(args: Array[String]){
-    for(in <- 1 to 1000){
+    (1 to 1000).foreach{i =>
       println("Hello World")
     }
   }
