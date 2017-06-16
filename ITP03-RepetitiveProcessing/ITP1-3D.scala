@@ -1,20 +1,9 @@
 import scala.io.StdIn
- 
+
 object Main{
   def main(args: Array[String]){
-    var list = List[Int]()
- 
-    for(in <- StdIn.readLine.split(" ").map(_.toInt)){
-      list = in :: list
-    }
- 
-    var count = 0
-    for(i <- list(2) to list(1)){
-      if(list.head % i == 0){
-        count = count + 1
-      }
-    }
- 
-    println(count)
+    val line = StdIn.readLine.split(" ").toList.map(_.toInt)
+
+    println((line.head to line.tail.head).map{i => line.last % i == 0}.filter{_ == true}.length)
   }
 }
