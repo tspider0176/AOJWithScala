@@ -4,20 +4,19 @@ object Main{
   def main(args: Array[String]){
     val list =
       for{
-        in <- Source.stdin.getLines.toList.map(_.toInt)
+        in <- Source.stdin.getLines.toList
       } yield in
 
-    for(i <- 0 until list.length){
-      if(list(list.length - i - 1).size > 4){
-        val arr = list(list.length - i - 1).split(Array(' '))
+    list.map(_.split(" ").toList).filter{_.length > 2}.map{list =>
+      val l = list.head.toInt
+      val r = list.last.toInt
 
-        arr(1) match {
-          case "+" => println(arr(0).toInt + arr(2).toInt)
-          case "-" => println(arr(0).toInt - arr(2).toInt)
-          case "*" => println(arr(0).toInt * arr(2).toInt)
-          case "/" => println(arr(0).toInt / arr(2).toInt)
-          case "?" =>
-        }
+      list.tail.head match {
+        case "+" => println(l + r)
+        case "-" => println(l - r)
+        case "*" => println(l * r)
+        case "/" => println(l / r)
+        case "?" =>
       }
     }
   }
