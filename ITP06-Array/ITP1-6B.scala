@@ -3,9 +3,9 @@ import scala.io.StdIn
 object Main{
   def main(args: Array[String]){
     val num = StdIn.readLine()
-    var cards = Array.ofDim[Boolean](4, 14)
+    val cards = Array.ofDim[Boolean](4, 14)
 
-    for(i <- 1 to num.toInt){
+    (1 to num.toInt).foreach{ i =>
       val sai = StdIn.readLine().split(" ")
       sai(0) match{
         case "S" => cards(0)(sai(1).toInt) = true
