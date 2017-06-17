@@ -1,3 +1,3 @@
-# scala
-Storage space for AOJ code <br>
+# Introduction to Programming course in AOJ
+Solutions for AOJ-ITP  
 LANG: Scala
