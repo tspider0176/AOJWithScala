@@ -2,30 +2,30 @@ import scala.io.StdIn
 
 object Main{
   def main(args: Array[String]){
-    val num = StdIn.readLine().split(" ")
-    var arr1 = Array.ofDim[Int](num(0).toInt, num(1).toInt)
-    var arr2 = Array.ofDim[Int](1, num(1).toInt)
-    var arr3 = Array.ofDim[Int](num(0).toInt, 1)
+    val num = StdIn.readLine().split(" ").map(_.toInt).toList
+    val arr1 = Array.ofDim[Int](num(0), num(1))
+    val arr2 = Array.ofDim[Int](1, num(1))
+    val arr3 = Array.ofDim[Int](num(0), 1)
 
-    for(i <- 0 until num(0).toInt){
+    (0 to num(0) - 1).foreach{ i =>
       val line = StdIn.readLine().split(" ").map(_.toInt)
-      
-      for(j <- 0 until num(1).toInt){
+
+      (0 to num(0) - 1).foreach{ j =>
         arr1(i)(j) = line(j)
       }
     }
 
-    for(i <- 0 until num(1).toInt){
+    (0 to num(1) - 1).foreach{ i =>
       arr2(0)(i) = StdIn.readLine().toInt
     }
 
-    for(i <- 0 until num(0).toInt){
-      for(j <- 0 until num(1).toInt){
+    (0 to num(0) - 1).foreach{ i =>
+      (0 to num(0) - 1).foreach{ j =>
         arr3(i)(0) += arr1(i)(j) * arr2(0)(j)
       }
     }
 
-    for(i <- 0 until num(0).toInt){
+    (0 to num(0) - 1).foreach{ i =>
       println(arr3(i)(0))
     }
   }
